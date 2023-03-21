@@ -3,8 +3,8 @@
 // ESP32 Cam Motion Alert | Send Image to Telegram
 
 // Enter your WiFi ssid and password
-const char* ssid     = "HiramZednem";   //WIFI SSID
-const char* password = "Mexicanito17";   //WIFI password
+const char* ssid     = "sera";   //WIFI SSID
+const char* password = "12345678";   //WIFI password
 String token = "6028211569:AAFRTf7ANZ5r1fpDfQNVM7EO-eSKDCDb9Tg";
 String chat_id = "6272792272";
 
@@ -135,13 +135,15 @@ sensor_t * s = esp_camera_sensor_get();
 void loop()
 {
  
-  pinMode(gpioPIR, INPUT_PULLUP);
+  pinMode(gpioPIR, INPUT);
   int v = digitalRead(gpioPIR);
   Serial.println(v);
   if (v==1)
   {
+    ledcWrite(3,10);
+    delay(1000);
+    ledcWrite(3,0);
     alerts2Telegram(token, chat_id);
-    delay(10000); 
   }
   delay(1000);  
   
